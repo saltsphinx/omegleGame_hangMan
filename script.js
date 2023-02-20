@@ -1,4 +1,5 @@
 let observer;
+let omegleObserver;
 const config = {
   delay: 250,
   sendBtnSelector: '.sendbtn',
@@ -17,13 +18,19 @@ function runDialog(dialog)
 
 function printToOmegle(msg)
 {
-  const textarea = document.querySelector(config.sendBtnSelector);
-  const sendBtn = document.querySelector(config.messageSelector);
+  const textarea = document.querySelector(config.messageSelector);
+  const sendBtn = document.querySelector(config.sendBtnSelector);
   const prevText = textarea.value;
 
+  console.log({textarea, sendBtn, prevText, msg})
   textarea.value = msg;
-  sendBtn.click()
+  sendBtn.click();
   textarea.value = prevText;
+}
+
+function start()
+{
+
 }
 
 function setUpObserver()
@@ -64,18 +71,22 @@ function checkLog(mutationList, observer)
     const span = para.querySelector('span');
     let textContent;
 
-    if (span)
-    {
-      textContent = span.textContent;
-    }
-
     if (logClassList.contains('statuslog') && para.textContent == 'Stranger has disconnected.' || para.textContent == 'You have disconnected.')
     {
       observer.disconnect();
       console.warn('Chat ended.')
     }
 
+    if (!span)
+    {
+      return;
+    }
+
+    textContent = span.textContent;
+
     if (logClassList.contains('strangermsg'))
       printToOmegle(textContent)
+
+    return {logClassList: logClassList[0], textContent};
   })
 }
