@@ -1,7 +1,7 @@
 let observer;
 const config = {
   delay: 250,
-  sumbitSelector: '.sendbtn',
+  sendBtnSelector: '.sendbtn',
   messageSelector: '.chatmsg'
 };
 
@@ -17,11 +17,12 @@ function runDialog(dialog)
 
 function printToOmegle(msg)
 {
-  const textarea = document.querySelector('.chatmsg');
+  const textarea = document.querySelector(config.sendBtnSelector);
+  const sendBtn = document.querySelector(config.messageSelector);
   const prevText = textarea.value;
 
   textarea.value = msg;
-  document.querySelector('.sendbtn').click()
+  sendBtn.click()
   textarea.value = prevText;
 }
 
