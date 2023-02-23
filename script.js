@@ -191,10 +191,11 @@ function select(userMsgObj)
   }
   else
   {
-    tempStorage.word = input.split(';')[0].toLowerCase();
+    tempStorage.word = input.split(';')[1].toLowerCase();
 
     if (tempStorage.hanger == 'strangermsg')
     {
+      console.log({input, word: tempStorage.word});
       userMsgObj.span.textContent = '| SECRET WORD REMOVED';
     }
   }
