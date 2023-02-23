@@ -18,7 +18,8 @@ let dialogObj = {
   help: ['The game begins with both the host(player who initiated the game) and the stranger deciding who will be the hanger through vote.',
     'The hanger is the player who knows the secret word, they can either have one selected automatically or enter one their self.',
     'If the hanger is the stranger, any messages in relation to the secret word will be deleted on the host\'s end while the game is in progress.',
-    'The guesser has a total of 6 guesses before losing the game. The hanger can ;forgive a mis-guess if they choose to.'],
+    'The guesser has a total of 6 guesses before losing the game. The hanger can ;forgive a mis-guess if they choose to.',
+    'Type ;guesses during the game to see letters already guessed.'],
   voting: ['Game offer accepted', 'Vote for who will be the hanger, the player that will decide and hold the secret word.', 'Options:\n;host\n;stranger\n;help'],
 
 }
@@ -230,6 +231,12 @@ function game(userMsgObj)
     return;
   }
 
+  if (input == ';guesses')
+  {
+    runDialog(tempStorage.letterGuesses.join(', '));
+    return;
+  }
+
   if (userMsgObj.logClass == tempStorage.hanger)
   {
     return;
@@ -270,7 +277,7 @@ function game(userMsgObj)
   }
   showGraphics();
 
-  if (tempStorage.failCount == 6 || !tempStorage.wordSlots.includes('_'))
+  if (tempStorage.failCount >= 6 || !tempStorage.wordSlots.includes('_'))
   {
     gameEnd();
     return true;
