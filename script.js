@@ -170,7 +170,6 @@ function select(userMsgObj)
 
   if (!input[0] == ';' || input.length <= 1 || !/^;[a-zA-Z]+$/.test(input))
   {
-    console.log('fail');
     return;
   }
 
@@ -195,7 +194,6 @@ function select(userMsgObj)
 
     if (tempStorage.hanger == 'strangermsg')
     {
-      console.log({input, word: tempStorage.word});
       userMsgObj.span.textContent = '| SECRET WORD REMOVED';
     }
   }
